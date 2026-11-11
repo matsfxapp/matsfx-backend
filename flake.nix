@@ -34,8 +34,8 @@
             shellHook = ''
               echo "matsfx dev shell  ·  $(go version)"
 
-              if [[ $- == *i* && -z ''${IN_LOQUI_SHELL:-} ]]; then
-                export IN_LOQUI_SHELL=1
+              if [[ $- == *i* && -z ''${IN_MATSFX_SHELL:-} ]]; then
+                export IN_MATSFX_SHELL=1
                 export SHELL="$(command -v fish)"
                 exec fish
               fi

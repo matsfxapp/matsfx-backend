@@ -24,7 +24,7 @@
               go_1_26
               gopls
               gotools
-              postgresql_16
+              postgresql_18
               docker-compose
               fish
             ];

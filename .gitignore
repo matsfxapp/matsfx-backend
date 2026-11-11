@@ -1,0 +1,5 @@
+/matsfx
+/bin/
+/result
+.env
+.direnv/

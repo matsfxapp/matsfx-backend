@@ -1,0 +1,33 @@
+name: matsfx-dev
+
+services:
+  postgres:
+    image: postgres:18
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:?set POSTGRES_USER in .env}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+      POSTGRES_DB: ${POSTGRES_DB:?set POSTGRES_DB in .env}
+    ports:
+      - 127.0.0.1:${POSTGRES_PORT:?set POSTGRES_PORT in .env}:5432
+    volumes:
+      - postgres:/var/lib/postgresql
+
+  garage:
+    image: dxflrs/garage:v2.5.0
+    command: [/garage, server, --single-node, --default-bucket]
+    environment:
+      GARAGE_RPC_SECRET: ${GARAGE_RPC_SECRET:?set GARAGE_RPC_SECRET in .env}
+      GARAGE_DEFAULT_ACCESS_KEY: ${GARAGE_DEFAULT_ACCESS_KEY:?set GARAGE_DEFAULT_ACCESS_KEY in .env}
+      GARAGE_DEFAULT_SECRET_KEY: ${GARAGE_DEFAULT_SECRET_KEY:?set GARAGE_DEFAULT_SECRET_KEY in .env}
+      GARAGE_DEFAULT_BUCKET: ${S3_BUCKET:?set S3_BUCKET in .env}
+    ports:
+      - 127.0.0.1:${GARAGE_S3_PORT:?set GARAGE_S3_PORT in env}:3900
+    volumes:
+      - ./garage.toml:/etc/garage.toml:ro
+      - garage-meta:/var/lib/garage/meta
+      - garage-data:/var/lib/garage/data
+
+volumes:
+  postgres:
+  garage-meta:
+  garage-data:

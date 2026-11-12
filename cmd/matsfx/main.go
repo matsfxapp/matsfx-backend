@@ -1,10 +1,12 @@
 package main
 
 import (
+	"context"
 	"log/slog"
 	"os"
 
 	"github.com/matsfxapp/matsfx-backend/internal/config"
+	"github.com/matsfxapp/matsfx-backend/internal/db"
 )
 
 func main() {
@@ -14,5 +16,13 @@ func main() {
 		os.Exit(1)
 	}
 
-	slog.Info("matsfx backend is starting…", "addr", cfg.HTTPAddr, "origin", cfg.PublicOrigin)
+	slog.Info("matsfx backend is starting", "addr", cfg.HTTPAddr, "origin", cfg.PublicOrigin)
+
+	database, err := db.Open(context.Background(), cfg.DatabaseURL)
+	if err != nil {
+		slog.Error("connect database", "err", err)
+		os.Exit(1)
+	}
+	defer database.Close()
+	slog.Info("database connected")
 }

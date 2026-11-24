@@ -7,6 +7,7 @@ import (
 
 	"github.com/matsfxapp/matsfx-backend/internal/config"
 	"github.com/matsfxapp/matsfx-backend/internal/db"
+	"github.com/matsfxapp/matsfx-backend/internal/storage"
 )
 
 func main() {
@@ -25,4 +26,10 @@ func main() {
 	}
 	defer database.Close()
 	slog.Info("database connected")
+
+	if _, err := storage.Open(context.Background(), cfg.S3); err != nil {
+		slog.Error("connect storage", "err", err)
+		os.Exit(1)
+	}
+	slog.Info("storage connected", "bucket", cfg.S3.Bucket)
 }

@@ -50,7 +50,7 @@ func (rt *Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 			"request", "request_id", id, "method", r.Method, "path", r.URL.Path, "status", sw.status, "duration", time.Since(start))
 	}()
 
-	// ServerMux would answer 404 and 405 as text/plain
+	// ServeMux would answer 404 and 405 as text/plain
 	if h, pattern := rt.mux.Handler(r); pattern == "" {
 		writeMuxError(sw, r, h)
 		return

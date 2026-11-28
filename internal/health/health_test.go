@@ -14,7 +14,7 @@ import (
 	"github.com/matsfxapp/matsfx-backend/internal/httpx"
 )
 
-func TestFauledCheckIsNamed(t *testing.T) {
+func TestFailedCheckIsNamed(t *testing.T) {
 	var logs bytes.Buffer
 	log := slog.New(slog.NewTextHandler(&logs, nil))
 	router := httpx.NewRouter(log)

@@ -64,7 +64,7 @@ func writeMuxError(w http.ResponseWriter, r *http.Request, h http.Handler) {
 
 	if probe.status == http.StatusMethodNotAllowed {
 		w.Header().Set("Allow", probe.Header().Get("Allow"))
-		writeErrorBody(w, &Error{Status: http.StatusMethodNotAllowed, Code: "method_not_allowed", Message: "Message not allowed."})
+		writeErrorBody(w, &Error{Status: http.StatusMethodNotAllowed, Code: "method_not_allowed", Message: "Method not allowed."})
 		return
 	}
 	writeErrorBody(w, &Error{Status: http.StatusNotFound, Code: "not_found", Message: "Not found."})

@@ -21,7 +21,7 @@ services:
       GARAGE_DEFAULT_SECRET_KEY: ${GARAGE_DEFAULT_SECRET_KEY:?set GARAGE_DEFAULT_SECRET_KEY in .env}
       GARAGE_DEFAULT_BUCKET: ${S3_BUCKET:?set S3_BUCKET in .env}
     ports:
-      - 127.0.0.1:${GARAGE_S3_PORT:?set GARAGE_S3_PORT in env}:3900
+      - 127.0.0.1:${GARAGE_S3_PORT:?set GARAGE_S3_PORT in .env}:3900
     volumes:
       - ./garage.toml:/etc/garage.toml:ro
       - garage-meta:/var/lib/garage/meta
